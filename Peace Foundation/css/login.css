@@ -1,0 +1,65 @@
+body{
+    display: flex;
+    justify-content: center;
+    font-family: 'Lora', serif;
+    padding: 150px;
+    max-width: 200%;
+    background-image: url(login.jpg);
+    background-repeat:space;
+    background-size: cover;
+   }
+h1{
+    text-align: center;
+    font-size:xx-large;
+  }
+  form {
+    width:30%;
+    margin:0 auto;
+    padding:10px 25px;
+    border:1px solid none;
+    box-shadow: 20px;
+    border-radius: 10px;   
+    background:cornsilk; 
+  }
+
+input[type=text], input[type=password] {
+    max-width: 150%;
+    padding: 1px 1px;
+    margin: 5px 0 5px 0;
+    border-style: solid;
+    background: #f1f1f1;
+    box-sizing: border-box;
+    box-shadow:lightslategrey;
+  }
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline:dimgray;
+    text-align: center;
+  }
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 5px 5px;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+  }
+button:hover {
+    opacity: 0.8;
+  }
+span.psw{
+    float: right;
+    padding-top: 16px;
+  }
+span.newuser{
+    float: left;
+    padding-top: 16px;
+  }
+@media screen and (max-width: 300px) {
+    span.psw ,span.newuser{
+      display: inline-block;
+      color: blue;
+    }
+}
