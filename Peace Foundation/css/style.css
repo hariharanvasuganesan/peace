@@ -226,7 +226,7 @@ img{
  
     
 }
-.content-section .content .button a{
+.content-section .content .button a,button{
     background-color: #3d3d3d;
     padding: 12px 25px;
     text-decoration: none;
@@ -238,6 +238,10 @@ img{
 
 }
 .content-section .content .button a:hover{
+    background-color: #a52a2a;
+    color: #fff;
+}
+.content-section .content .button button:hover{
     background-color: #a52a2a;
     color: #fff;
 }
@@ -309,6 +313,9 @@ img{
     background-color: #3d3d3d;
 }
 
+#show-donate{
+    border: none;
+}
 
 @media screen and (max-width:768px) {
     .about-us{
@@ -356,6 +363,13 @@ img{
         display: block;
     margin-top: 3px;
 
+    }
+    .content-section .content .button button{
+        width: 100%;
+    margin-top: 2%;
+    height: 35px;
+    border: none;
+    font-size: 10px;
     }
     .content-section .social{
         text-align: center;

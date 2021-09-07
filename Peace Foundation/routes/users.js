@@ -5,6 +5,8 @@ const passport = require('passport');
 
 // Load User model
 const User = require('../models/User');
+const Vlnt = require('../models/Vlnt')
+
 const { forwardAuthenticated } = require('../config/auth');
 
 //Login Page
@@ -12,6 +14,8 @@ router.get('/login', forwardAuthenticated, (req,res) => res.render("login"));
 
 //Register Page
 router.get('/register', forwardAuthenticated, (req,res) => res.render("register"));
+
+
 
 // Register
 router.post('/register', (req, res) => {
@@ -28,6 +32,10 @@ router.post('/register', (req, res) => {
 
   if (password.length < 6) {
     errors.push({ msg: 'Password must be at least 6 characters' });
+  }
+
+  if (phone.length < 10 || phone.length >= 11) {
+    errors.push({ msg: 'Please enter a valid mobile number' });
   }
 
   if (errors.length > 0) {
@@ -101,5 +109,62 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+ 
+//Volunteer
+router.get('/volunteer', (req,res) => res.render("volunteer"));
+
+router.post('/volunteer', (req, res) => {
+  const { name, phone, email, spec } = req.body;
+  let errors = [];
+
+  if (!name || !phone || !email || !spec) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+
+  if (phone.length < 10 || phone.length >= 11) {
+    errors.push({ msg: 'Please enter a valid mobile number' });
+  }
+
+  if (errors.length > 0) {
+    res.render('volunteer', {
+      errors,
+      name,
+      phone,
+      email,
+      spec
+    });
+  } else {
+    Vlnt.findOne({ email: email }).then(user => {
+      if (user) {
+        errors.push({ msg: 'Email already exists' });
+        res.render('volunteer', {
+          errors,
+          name,
+          phone,
+          email,
+          spec
+        });
+      } else {
+        const newVlnt = new Vlnt({
+          name,
+          phone,
+          email,
+          spec
+        });
+        newVlnt
+         .save()
+         .then(user => {
+          req.flash(
+                'success_msg',
+                'You are now registered and we will get back to you within 2-3 days'
+            );
+          res.redirect('/users/volunteer');
+              })
+          .catch(err => console.log(err));
+      }
+    });
+  }
+});
+
 
 module.exports = router;

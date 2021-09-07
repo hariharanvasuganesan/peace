@@ -1,0 +1,58 @@
+.container{
+    background: url('/img/rgpg3.jpg')center/cover fixed no-repeat;
+    font-family: 'Lora';
+}
+.card{
+    margin-top: 2rem;
+    background-color: rgba(93, 91, 91, 0.5);
+    border-radius: 20px;
+    transition: all 1s ease-in-out;
+}
+img{
+    
+    width: 7rem;
+    height: 7rem;
+    align-self: center;
+}
+.card:hover{
+    background-color: rgba(36, 32, 32, 0.8);
+}
+.btn{
+    font-size: 1.2rem;
+    padding: 0.8rem 3rem;
+    border-radius: 10px;
+}
+.btn{
+    background-color: rgba(202, 66, 66, 0.883);
+    /* transition: all 1s ease-in-out; */
+}
+.btn:hover{
+    background-color: rgb(214, 29, 13);
+}
+.btn:active{
+    transform: translateY(4px);
+
+}
+.btn1{
+background-color: rgba(0, 127, 144, 0.705);
+color: white;
+position: absolute;
+font-size: 1.2rem;
+padding: 0.4rem 0.8rem;
+right: 25px;
+top: 25px;
+border-radius: 8px;
+border: none;
+/* transition: all 0.7s ease-in-out; */
+}
+.btn1:hover{
+    text-decoration: none;
+    background-color: rgba(246, 1, 1, 0.924);
+    color: white;;
+    
+}
+.btn1:active{
+    background-color: #EB5757;
+    /* box-shadow: 0 5px #666; */
+    transform: translateY(4px);
+}
