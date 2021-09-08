@@ -1,6 +1,6 @@
 const mongose = require('mongoose');
 
-const VlntSchema = new mongose.Schema({
+const VolunteerSchema = new mongose.Schema({
   name: {
     type: String,
     required: true
@@ -13,7 +13,7 @@ const VlntSchema = new mongose.Schema({
     type: String,
     required: true
   },
-  spec: {
+  specialization: {
     type: String,
     required: true
   },
@@ -23,7 +23,7 @@ const VlntSchema = new mongose.Schema({
   }
 });
 
-const Vlnt = mongose.model('Vlnt', VlntSchema);
+const Volunteer = mongose.model('Volunteer', VolunteerSchema);
 
 
-module.exports = Vlnt;
+module.exports = Volunteer;

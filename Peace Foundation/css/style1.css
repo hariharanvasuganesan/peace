@@ -53,10 +53,10 @@ img{
     font-size: 3.8rem;
     font-weight: 700;
     letter-spacing: .3rem;
-    color: rgb(75, 108, 201);
+    color: rgb(255, 255, 255);
 }
 .carousel-caption h3{    
-    color: rgb(75, 108, 201);
+    color: rgb(255, 255, 255);
 }
 .carousel-item img{
     width: 100%;
