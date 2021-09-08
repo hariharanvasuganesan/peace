@@ -5,7 +5,7 @@ const passport = require('passport');
 
 // Load User model
 const User = require('../models/User');
-const Vlnt = require('../models/Vlnt')
+const Volunteer = require('../models/Volunteer')
 
 const { forwardAuthenticated } = require('../config/auth');
 
@@ -25,6 +25,9 @@ router.post('/register', (req, res) => {
   if (!name || !phone || !email || !governmentIdName || !governmentIdNo|| !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
+  if (phone.length < 10 || phone.length >= 11) {
+    errors.push({ msg: 'Please enter a valid mobile number' });
+  }
 
   if (password != password2) {
     errors.push({ msg: 'Passwords do not match' });
@@ -34,10 +37,7 @@ router.post('/register', (req, res) => {
     errors.push({ msg: 'Password must be at least 6 characters' });
   }
 
-  if (phone.length < 10 || phone.length >= 11) {
-    errors.push({ msg: 'Please enter a valid mobile number' });
-  }
-
+ 
   if (errors.length > 0) {
     res.render('register', {
       errors,
@@ -49,7 +49,21 @@ router.post('/register', (req, res) => {
       password,
       password2
     });
-  } else {
+  }  else {
+    User.findOne({ phone: phone }).then(user => {
+      if (user) {
+        errors.push({ msg: 'Mobile Number already exists' });
+        res.render('register', {
+          errors,
+          name,
+          phone,
+          email,
+          governmentIdName,
+          governmentIdNo,
+          password,
+          password2
+        });
+      }else {
     User.findOne({ email: email }).then(user => {
       if (user) {
         errors.push({ msg: 'Email already exists' });
@@ -93,6 +107,8 @@ router.post('/register', (req, res) => {
     });
   }
 });
+};
+});
 
 // Login
 router.post('/login', (req, res, next) => {
@@ -114,10 +130,10 @@ router.get('/logout', (req, res) => {
 router.get('/volunteer', (req,res) => res.render("volunteer"));
 
 router.post('/volunteer', (req, res) => {
-  const { name, phone, email, spec } = req.body;
+  const { name, phone, email, specialization } = req.body;
   let errors = [];
 
-  if (!name || !phone || !email || !spec) {
+  if (!name || !phone || !email || !specialization) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -131,10 +147,21 @@ router.post('/volunteer', (req, res) => {
       name,
       phone,
       email,
-      spec
+      specialization
     });
-  } else {
-    Vlnt.findOne({ email: email }).then(user => {
+  }else {
+    Volunteer.findOne({ phone: phone }).then(user => {
+      if (user) {
+        errors.push({ msg: 'Mobile number already exists' });
+        res.render('volunteer', {
+          errors,
+          name,
+          phone,
+          email,
+          specialization
+        });
+      } else {
+    Volunteer.findOne({ email: email }).then(user => {
       if (user) {
         errors.push({ msg: 'Email already exists' });
         res.render('volunteer', {
@@ -142,16 +169,16 @@ router.post('/volunteer', (req, res) => {
           name,
           phone,
           email,
-          spec
+          specialization
         });
       } else {
-        const newVlnt = new Vlnt({
+        const newVolunteer = new Volunteer({
           name,
           phone,
           email,
-          spec
+          specialization
         });
-        newVlnt
+        newVolunteer
          .save()
          .then(user => {
           req.flash(
@@ -164,6 +191,8 @@ router.post('/volunteer', (req, res) => {
       }
     });
   }
+});
+  };
 });
 
 
